@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестовое задание Quicktum</title>
+</head>
+<body>
+    <style>
+        div {
+            margin: 0 auto;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 24px;
+        }
+        button {
+            min-width: 100px;
+            font-family: inherit;
+            appearance: none;
+            border: 0;
+            border-radius: 5px;
+            background: #4676d7;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button[data-clicked="true"] {
+            outline: none;
+            box-shadow: 0 0 0 2px #cbd6ee;
+        }
+    </style>
+    <div>
+        <p>Абзац</p>
+        <button data-clicked="false">Кнопка 1</button>
+        <button data-clicked="false">Кнопка 2</button>
+    </div>
+    <script>
+        const button = document.querySelectorAll("button");
+        const paragraph = document.querySelector("p");
+        let clicked = [false, false];
+
+        for (let i = 0; i < button.length; i++) {
+            button[i].addEventListener("click", updateButton);
+        }
+
+        function updateButton(event) {
+            if (button[0] == event.currentTarget) {
+                if (clicked[0]) {
+                    clicked[0] = false;
+                    event.target.setAttribute('data-clicked', 'false');
+                } else {
+                    clicked[0] = true;
+                    event.target.setAttribute('data-clicked', 'true');
+                }
+            } else if (button[1] == event.currentTarget) {
+                if (clicked[0] == clicked[1]) {
+                    return
+                }
+                if (clicked[1]) {
+                    clicked[1] = false;
+                    event.target.setAttribute('data-clicked', 'false');
+                } else {
+                    clicked[1] = true;
+                    event.target.setAttribute('data-clicked', 'true');
+                }
+            }
+
+            if (clicked[0] + clicked[1] == 2) {
+                paragraph.style.display = 'none';
+            } else if (clicked[0] + clicked[1] === 0) {
+                paragraph.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
